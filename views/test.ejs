@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
+</head>
+
+<body>
+    <h1>Firebase Test</h1>
+    <p>Firebase console에 데이터가 추가 되었는지 확인하세요</p>
+</body>
+
+</html>
+
+<script>
+    // Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyAEQU52QpJAg36VjnUVVLmIV7l70taXhTM",
+    authDomain: "polarship-000.firebaseapp.com",
+    databaseURL: "https://polarship-000.firebaseio.com",
+    projectId: "polarship-000",
+    storageBucket: "polarship-000.appspot.com",
+    messagingSenderId: "1069408421511"
+  };
+    firebase.initializeApp(config);
+
+var newPostKey = firebase.database().ref().child('posts').push().key;
+
+    var postData = {
+        brdno: newPostKey,
+        brdwriter: "홍길동",
+        brdtitle: "게시판 제목",
+        brdmemo: "게시물 내용",
+        brddate: Date.now()
+    };
+
+
+
+    var updates = {};
+    updates['/board/' + newPostKey] = postData;
+
+    firebase.database().ref().update(updates);
+</script>
